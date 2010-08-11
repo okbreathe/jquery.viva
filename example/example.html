@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>jQuery.viva</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../lib/jquery.viva.js"></script>
+<link rel="stylesheet" href="screen.css" type="text/css" />
+<style type='text/css'>
+  .ex1,.ex2 {
+    width:100px;
+    height:100px;
+    display:inline-block;
+    margin-right:10px;
+    vertical-align:top;
+  }
+  .red {
+    background:#f00; 
+  }
+  .green {
+    background:#0f0; 
+  }
+  .blue {
+    background:#00f; 
+    color:#fff;
+  }
+  .ex-ct {
+    position:relative;
+    width:100%;
+    margin:10px 0;
+  }
+</style>
+</head>
+<body>
+  <div id='doc'>
+    <h1>viva!</h1>
+    <p class='large'> Extend jQuery's "live" function with selector specific event handling </p>
+    <pre>
+      <code>
+        $("div").viva('click', function(e){
+          console.log("Clicked a div")
+        });
+        $("div.red").viva('click', function(e){
+          console.log("Clicked a RED div")
+        });
+      </code>
+    </pre>
+    <div class='ex-ct'>
+      <div class='ex1 red'>click me</div>
+      <div class='ex1 green'>click me</div>
+      <div class='ex1 green'>click me</div>
+      <div class='ex1 green'>click me</div>
+    </div>
+    <script type='text/javascript'>
+        $("div.ex1").viva('click', function(e){
+          this.html("Clicked a div")
+        });
+        $("div.ex1.red").viva('click', function(e){
+          this.html("Clicked a RED div")
+        });
+    </script>
+    <pre>
+      <code>
+        $("div.square").viva({
+          mouseenter:function(){console.log("mouse in")},
+          mouseleave:function(){console.log("mouse out")}
+        });
+        $("div.square.blue").viva({
+          mouseenter:function(){console.log("mouse in GREEN div")},
+          mouseleave:function(){console.log("mouse out of GREEN div")}
+        });
+      </code>
+    </pre>
+    <div class='ex-ct'>
+      <div class='ex2 red'>hover over me</div>
+      <div class='ex2 green'>hover over me</div>
+      <div class='ex2 green'>hover over me</div>
+      <div class='ex2 blue'>hover over me</div>
+    </div>
+    <script type='text/javascript'>
+        $("div.ex2").viva({
+          mouseover:function(){this.html("mouse in")},
+          mouseout:function(){this.html("mouse out")}
+        });
+        $("div.ex2.blue").viva({
+          mouseover:function(){this.html("mouse in BLUE div")},
+          mouseout:function(){this.html("mouse out of BLUE div")}
+        });
+    </script>
+  </div>
+</body>
+</html>
