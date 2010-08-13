@@ -48,20 +48,28 @@ describe 'jQuery.Viva'
       $('body').append('<div id="dom"></div>')
       $('#dom').append("<a class='bar' href='#'></a><a class='foo' href='#'></a>")
       i = 0;
+      j = 0;
       $('a.foo').viva("click", function(){ i++;});
-      $('a.bar').viva("click", function(){});
+      $('a.bar').viva("click", function(e,a){ j = a;});
     end
 
     after
       $('#dom').remove()
     end
    
+    it "should receive eventData"
+      j.should.equal 0
+      $('a.bar').trigger('click',[5]);
+      j.should.equal 5
+    end
+
     it "should only call the eventHandler bound to the most specific selector"
       $('a.bar').trigger('click');
       i.should.equal 0
       $('a.foo').trigger('click');
       i.should.equal 1
     end
+
   end
 
   describe "specificity"
