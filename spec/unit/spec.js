@@ -70,6 +70,14 @@ describe 'jQuery.Viva'
       i.should.equal 1
     end
 
+    it "should work with nested elements"
+      $('#dom').append("<a id='nested-container' href='#'><p id='nested'></p></a>");
+      k = 0;
+      $('#nested-container').viva("click", function(e,a){ k = 1;});
+      $('#nested').trigger('click');
+      k.should.equal 1
+    end
+
   end
 
   describe "specificity"
