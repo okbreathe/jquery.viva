@@ -44,6 +44,27 @@ Clicking the 'red','green' and 'blue' divs in order will yield the following:
 
 See example.html for additional examples.
 
+## Finding Specific Handlers
+
+If you would like to find a specific eventHandler, you can use the `find` functionality.
+This can be used to implement "super"-like functionality.
+
+    $.viva.find(eventOrEventName,selectorOrjQueryObject)
+
+If an eventHandler exists for the given event and selector, it will be returned.
+Unlike the standard viva behavior, the selector must be an exact match. For example
+if you bind
+
+    $.viva("ul > li", ...)
+
+The follow will NOT return the eventHandler to the aforementioned binding
+
+    $.viva.find("li")
+
+The selector must be typed exactly as it was bound:
+
+    $.viva.find("ul > li")
+
 ## License
 
 (The MIT License)

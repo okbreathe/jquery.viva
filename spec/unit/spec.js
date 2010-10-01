@@ -80,6 +80,36 @@ describe 'jQuery.Viva'
 
   end
 
+  describe "finding handlers"
+    before 
+      $.viva.clear()
+      $('body').append('<div id="dom"></div>')
+      $('#dom').append("<a class='foo' href='#'></a>")
+      a = function(){}
+      b = function(){}
+      $('a').viva("click", a);
+      $('a.foo').viva("click", b);
+    end
+
+    it "should work with strings"
+      $.viva.find("click", "a").should.equal a
+      $.viva.find("click", "a.foo").should.equal b
+      $.viva.find("click", "a.bar").should.be_null
+      $.viva.find("mouseover", "a.foo").should.be_null
+    end
+
+    it "should work with objects"
+      $.viva.find({type:"click"}, $('a')).should.equal a
+      $.viva.find({type:"click"}, $("a.foo")).should.equal b
+      $.viva.find({type:"click"}, $("a.bar")).should.be_null
+      $.viva.find({type:"mouseover"},$("a.foo")).should.be_null
+    end
+
+    after
+      $('#dom').remove()
+    end
+  end
+
   describe "specificity"
     it "should adhere to the CSS3 spec" 
       $.viva.ruleGen("*","event",function(){}).score.should.be 0
