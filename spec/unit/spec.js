@@ -12,6 +12,22 @@ describe 'jQuery.Viva'
       $.viva.rules["click"][0].constructor.name.should.be "Rule"
     end
 
+    it 'should install one or more rules when given multiple events'
+      $("div").viva("click","mouseover", "mouseout", function(){})
+
+      $.viva.rules["click"].should.be_a(Array)
+      $.viva.rules["click"].length.should.be 1
+      $.viva.rules["click"][0].constructor.name.should.be "Rule"
+
+      $.viva.rules["mouseover"].should.be_a(Array)
+      $.viva.rules["mouseover"].length.should.be 1
+      $.viva.rules["mouseover"][0].constructor.name.should.be "Rule"
+
+      $.viva.rules["mouseout"].should.be_a(Array)
+      $.viva.rules["mouseout"].length.should.be 1
+      $.viva.rules["mouseout"][0].constructor.name.should.be "Rule"
+    end
+
     it 'should install one or more rules when given an object'
       $("div").viva({ click:function(){} })
       $.viva.rules["click"].should.be_a(Array)

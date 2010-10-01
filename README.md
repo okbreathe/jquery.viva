@@ -14,12 +14,16 @@ no eventHandler is called.
 
     $(selector).viva(eventName, function(){});
 
+We can also bind multiple events to the same eventHandler
+ 
+    $(selector).viva(eventName1, eventName2, eventNameN, function(){});
+
 Additionally, we can bind multiple events simultanously by passing an object
 where the keys are events and the values and eventHandlers.
 
     $(selector).viva({
-      event1: function(event){},
-      event2: function(event){}                 
+      event1: function(event){...do something...},
+      event2: function(event){...do something else...}                 
     });
 
 When the eventHandler is called, it will receive the event as the first
